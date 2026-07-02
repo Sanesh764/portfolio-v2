@@ -1,0 +1,72 @@
+.footer {
+  border-top: 1px solid var(--border-color);
+  padding: 3rem 0;
+  background: var(--bg-secondary);
+}
+
+.footerGrid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: 3rem;
+}
+
+.brand {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.bracket {
+  color: var(--primary);
+}
+
+.tagline {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.colTitle {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.footerLink {
+  display: block;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  padding: 0.3rem 0;
+  transition: color 0.3s ease;
+  cursor: pointer;
+}
+
+.footerLink:hover {
+  color: var(--primary-light);
+}
+
+.footerLink svg {
+  margin-right: 0.5rem;
+  font-size: 0.8rem;
+}
+
+.bottom {
+  border-top: 1px solid var(--border-color);
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.heart {
+  color: #ef4444;
+}
+
+@media (max-width: 768px) {
+  .footerGrid { grid-template-columns: 1fr; gap: 2rem; text-align: center; }
+}

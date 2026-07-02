@@ -1,0 +1,175 @@
+.contactGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+}
+
+.formCard {
+  padding: 2rem;
+}
+
+.formGroup {
+  margin-bottom: 1.25rem;
+}
+
+.label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(99,102,241,0.1);
+}
+
+.inputError {
+  border-color: #ef4444 !important;
+}
+
+.errorText {
+  display: block;
+  font-size: 0.75rem;
+  color: #ef4444;
+  margin-top: 0.35rem;
+  font-weight: 500;
+}
+
+.textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+
+.submitBtn {
+  width: 100%;
+  padding: 0.85rem;
+  background: var(--gradient-primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.submitBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(99,102,241,0.3);
+}
+
+.infoCard {
+  padding: 2rem;
+}
+
+.infoCard h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.75rem;
+}
+
+.infoText {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+
+.contactItem {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.contactIcon {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(99,102,241,0.1);
+  border-radius: 50%;
+  color: var(--primary-light);
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.contactLabel {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+}
+
+.contactValue {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.contactValue a {
+  color: var(--text-primary);
+  transition: color 0.3s;
+}
+
+.contactValue a:hover {
+  color: var(--primary-light);
+}
+
+.socialRow {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.socialLink {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+}
+
+.socialLink:hover {
+  color: white;
+  border-color: var(--primary);
+  background: var(--primary);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(99,102,241,0.3);
+}
+
+.leetcode:hover {
+  background: var(--warning);
+  border-color: var(--warning);
+  box-shadow: 0 6px 20px rgba(255,161,22,0.3);
+}
+
+@media (max-width: 768px) {
+  .contactGrid { grid-template-columns: 1fr; }
+}
