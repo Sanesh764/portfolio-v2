@@ -1,9 +1,12 @@
 # Premium MERN Developer Portfolio — V2
 
+[![Live Demo](https://img.shields.io/badge/Live_Demo-AWS_Amplify-FF9900?style=flat-square&logo=amazon-aws)](https://main.d3add5rrxtdy8u.amplifyapp.com/)
 [![React Version](https://img.shields.io/badge/React-19.0.0-61dafb.svg?style=flat-facing&logo=react)](https://react.dev)
 [![Vite Version](https://img.shields.io/badge/Vite-8.1.1-646cff.svg?style=flat-facing&logo=vite)](https://vite.dev)
 [![Framer Motion](https://img.shields.io/badge/Framer_Motion-12.4.2-ff0055.svg?style=flat-facing&logo=framer)](https://framer.com/motion)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+
+🔗 **Live Preview:** [https://main.d3add5rrxtdy8u.amplifyapp.com/](https://main.d3add5rrxtdy8u.amplifyapp.com/)
 
 A high-performance, dark/light theme MERN Stack developer portfolio designed to impress technical recruiters at top-tier product companies (Google, Microsoft, Amazon, Atlassian, NVIDIA). Built from scratch using **React 19**, **Vite**, **Framer Motion**, and **CSS Modules**.
 
