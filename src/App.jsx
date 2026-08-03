@@ -2,10 +2,12 @@ import { useState, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import Navbar from './components/Navbar/Navbar';
 import Hero from './components/Hero/Hero';
+import FeaturedProject from './components/FeaturedProject/FeaturedProject';
 import About from './components/About/About';
 import Skills from './components/Skills/Skills';
 import Projects from './components/Projects/Projects';
 import Experience from './components/Experience/Experience';
+import Achievements from './components/Achievements/Achievements';
 import Certificates from './components/Certificates/Certificates';
 import Contact from './components/Contact/Contact';
 import Footer from './components/Footer/Footer';
@@ -31,10 +33,12 @@ export default function App() {
         <>
           <Navbar />
           <Hero />
+          <FeaturedProject />
           <About />
           <Skills />
           <Projects />
           <Experience />
+          <Achievements />
           <Certificates />
           <Contact />
           <Footer />

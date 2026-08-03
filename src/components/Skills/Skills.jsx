@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion';
 import { 
   FaCode, FaPalette, FaServer, FaTools, FaCss3Alt, FaAws, FaJava, 
-  FaDatabase, FaCloud, FaInfinity, FaVial, FaLock, FaUserShield 
+  FaDatabase, FaCloud, FaInfinity, FaVial, FaLock, FaUserShield,
+  FaCheckCircle, FaExclamationTriangle, FaBug, FaCogs, FaRobot, FaBrain
 } from 'react-icons/fa';
 import {
   SiCplusplus, SiPython, SiJavascript, SiHtml5, SiReact,
@@ -9,7 +10,7 @@ import {
   SiFigma, SiLinux, SiVercel, SiMysql, SiMongoose, SiTailwindcss,
   SiBootstrap, SiEjs, SiSocketdotio, SiJsonwebtokens, SiCloudinary,
   SiRender, SiDocker, SiGithubactions, SiJest, SiTestinglibrary,
-  SiPostman, SiVite, SiMapbox
+  SiPostman, SiVite, SiMapbox, SiRailway, SiNginx
 } from 'react-icons/si';
 import { skills } from '../../data/portfolio.jsx';
 import styles from './Skills.module.css';
@@ -22,11 +23,13 @@ const iconMap = {
   SiNodedotjs: <SiNodedotjs />, SiExpress: <SiExpress />, SiSocketdotio: <SiSocketdotio />,
   SiJsonwebtokens: <SiJsonwebtokens />, FaUserShield: <FaUserShield />, FaLock: <FaLock />,
   SiMongodb: <SiMongodb />, SiMongoose: <SiMongoose />,
-  FaAws: <FaAws />, SiCloudinary: <SiCloudinary />, SiRender: <SiRender />,
-  SiDocker: <SiDocker />, SiGithubactions: <SiGithubactions />,
-  SiJest: <SiJest />, SiTestinglibrary: <SiTestinglibrary />,
-  SiGit: <SiGit />, SiGithub: <SiGithub />, SiPostman: <SiPostman />,
-  SiVite: <SiVite />, SiMapbox: <SiMapbox />, SiVscode: <FaCode />
+  FaAws: <FaAws />, SiCloudinary: <SiCloudinary />, SiRender: <SiRender />, SiVercel: <SiVercel />,
+  SiRailway: <SiRailway />, SiDocker: <SiDocker />, SiGithubactions: <SiGithubactions />, SiNginx: <SiNginx />,
+  FaInfinity: <FaInfinity />, FaCogs: <FaCogs />, FaCloud: <FaCloud />,
+  SiJest: <SiJest />, SiTestinglibrary: <SiTestinglibrary />, SiPostman: <SiPostman />,
+  FaCheckCircle: <FaCheckCircle />, FaExclamationTriangle: <FaExclamationTriangle />, FaBug: <FaBug />,
+  FaRobot: <FaRobot />, FaBrain: <FaBrain />,
+  SiGit: <SiGit />, SiGithub: <SiGithub />, SiVite: <SiVite />, SiMapbox: <SiMapbox />, SiVscode: <FaCode />
 };
 
 const categories = [
@@ -35,9 +38,10 @@ const categories = [
   { key: 'backend', title: 'Backend', icon: <FaServer /> },
   { key: 'databases', title: 'Databases', icon: <FaDatabase /> },
   { key: 'cloud', title: 'Cloud', icon: <FaCloud /> },
-  { key: 'devops', title: 'DevOps', icon: <FaInfinity /> },
-  { key: 'testing', title: 'Testing', icon: <FaVial /> },
-  { key: 'tools', title: 'Tools & Platforms', icon: <FaTools /> }
+  { key: 'devops', title: 'DevOps & Infrastructure', icon: <FaInfinity /> },
+  { key: 'testing', title: 'Testing & QA', icon: <FaVial /> },
+  { key: 'ai', title: 'AI & Machine Learning', icon: <FaRobot /> },
+  { key: 'tools', title: 'Tools & Ecosystem', icon: <FaTools /> }
 ];
 
 export default function Skills() {
@@ -45,9 +49,9 @@ export default function Skills() {
     <section id="skills" className="section">
       <div className="container">
         <motion.div className="section-header" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}>
-          <span className="section-label">Tech Stack</span>
-          <h2 className="section-title">Skills & Technologies</h2>
-          <p className="section-subtitle">Technologies I work with to bring ideas to life.</p>
+          <span className="section-label">Technical Stack & Proficiency</span>
+          <h2 className="section-title">Skills & Capabilities</h2>
+          <p className="section-subtitle">A comprehensive breakdown of technologies, devops pipelines, testing utilities, and tools I use in production.</p>
         </motion.div>
 
         <div className={styles.skillsContainer}>
