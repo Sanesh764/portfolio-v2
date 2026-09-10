@@ -1,6 +1,15 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaSearch, FaTimes, FaExternalLinkAlt, FaAward } from 'react-icons/fa';
+import { 
+  FaSearch, 
+  FaTimes, 
+  FaExternalLinkAlt, 
+  FaAward, 
+  FaFilePdf, 
+  FaRegCalendarAlt,
+  FaCertificate
+} from 'react-icons/fa';
+import { pdfCertificates } from '../../data/certificates';
 import styles from './Certificates.module.css';
 
 // Dynamically load all images from src/assets/certificate
@@ -11,9 +20,24 @@ export default function Certificates() {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [activeCertificate, setActiveCertificate] = useState(null);
 
-  // Parse certificates from glob import
+  // Combine PDF certificates and existing image certificates
   const certificates = useMemo(() => {
-    const list = Object.keys(certificateImages).map((path) => {
+    // 1. Process configured PDF certificates
+    const pdfList = pdfCertificates.map((cert) => ({
+      id: cert.id,
+      title: cert.title,
+      org: cert.org,
+      date: cert.date || '',
+      category: cert.category || 'Credential',
+      image: cert.preview,
+      pdfUrl: cert.pdfUrl,
+      isPdf: true,
+      credentialId: cert.credentialId,
+      badge: cert.badge
+    }));
+
+    // 2. Process legacy/existing image certificates from assets
+    const imageList = Object.keys(certificateImages).map((path) => {
       const module = certificateImages[path];
       const url = module.default || module;
       
@@ -61,13 +85,17 @@ export default function Certificates() {
         id: nameWithoutExt,
         title,
         org,
+        date: 'Verified Credential',
         category,
-        image: url
+        image: url,
+        pdfUrl: null,
+        isPdf: false,
+        badge: 'Verified'
       };
     });
 
-    // Sort alphabetically by default
-    return list.sort((a, b) => a.title.localeCompare(b.title));
+    // Combine both: prioritize PDF certificates, then image certificates
+    return [...pdfList, ...imageList];
   }, []);
 
   // Compute category list and counts
@@ -86,8 +114,13 @@ export default function Certificates() {
   // Filtered list
   const filteredCertificates = useMemo(() => {
     return certificates.filter(c => {
-      const matchesSearch = c.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                            c.org.toLowerCase().includes(searchQuery.toLowerCase());
+      const q = searchQuery.toLowerCase().trim();
+      const matchesSearch = !q || 
+        c.title.toLowerCase().includes(q) ||
+        c.org.toLowerCase().includes(q) ||
+        c.category.toLowerCase().includes(q) ||
+        (c.date && c.date.toLowerCase().includes(q));
+      
       const matchesCategory = selectedCategory === 'All' || c.category === selectedCategory;
       return matchesSearch && matchesCategory;
     });
@@ -105,10 +138,10 @@ export default function Certificates() {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <span className="section-label">Credentials</span>
+          <span className="section-label">Credentials & Certifications</span>
           <h2 className="section-title">Certifications</h2>
           <p className="section-subtitle">
-            A showcase of my verified achievements, courses, and professional credentials.
+            A showcase of my verified credentials, academic courses, and industry-recognized certifications.
           </p>
         </motion.div>
 
@@ -120,11 +153,20 @@ export default function Certificates() {
               <FaSearch className={styles.searchIcon} />
               <input
                 type="text"
-                placeholder="Search certificates..."
+                placeholder="Search certificates by title, issuer, or keyword..."
                 className={styles.searchInput}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
+              {searchQuery && (
+                <button 
+                  className={styles.searchClearBtn}
+                  onClick={() => setSearchQuery('')}
+                  aria-label="Clear search"
+                >
+                  <FaTimes />
+                </button>
+              )}
             </div>
 
             {/* Filter Tabs */}
@@ -160,25 +202,83 @@ export default function Certificates() {
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.3, delay: index * 0.05 }}
+                  transition={{ duration: 0.3, delay: index * 0.04 }}
                   onClick={() => setActiveCertificate(cert)}
                 >
+                  {/* Thumbnail / Image Preview */}
                   <div className={styles.cardImageWrapper}>
-                    <img 
-                      src={cert.image} 
-                      alt={cert.title} 
-                      className={styles.image}
-                      loading="lazy"
-                    />
+                    {cert.image ? (
+                      <img 
+                        src={cert.image} 
+                        alt={cert.title} 
+                        className={styles.image}
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div className={styles.docPlaceholder}>
+                        <FaFilePdf className={styles.placeholderIcon} />
+                        <span className={styles.placeholderText}>PDF Document</span>
+                      </div>
+                    )}
+
+                    {/* PDF Document Badge */}
+                    {cert.isPdf ? (
+                      <span className={styles.pdfBadge}>
+                        <FaFilePdf className={styles.pdfBadgeIcon} /> PDF
+                      </span>
+                    ) : (
+                      <span className={styles.credentialBadge}>
+                        <FaCertificate className={styles.pdfBadgeIcon} /> Image
+                      </span>
+                    )}
+
+                    {/* Hover Overlay */}
                     <div className={styles.cardOverlay}>
-                      <span className={styles.viewIcon}>
+                      <span className={styles.viewIcon} title="Preview Certificate">
                         <FaExternalLinkAlt />
                       </span>
                     </div>
                   </div>
+
+                  {/* Card Body */}
                   <div className={styles.cardBody}>
-                    <span className={styles.orgBadge}>{cert.org}</span>
-                    <h3 className={styles.cardTitle}>{cert.title}</h3>
+                    <div className={styles.cardMeta}>
+                      <span className={styles.orgBadge}>
+                        <FaAward className={styles.metaIcon} />
+                        {cert.org}
+                      </span>
+                      {cert.date && (
+                        <span className={styles.dateBadge}>
+                          <FaRegCalendarAlt className={styles.metaIcon} />
+                          {cert.date}
+                        </span>
+                      )}
+                    </div>
+
+                    <h3 className={styles.cardTitle} title={cert.title}>
+                      {cert.title}
+                    </h3>
+
+                    {/* Action Button */}
+                    <div className={styles.cardFooter}>
+                      <a
+                        href={cert.pdfUrl || cert.image}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.viewBtn}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                        }}
+                      >
+                        {cert.isPdf ? (
+                          <FaFilePdf className={styles.btnIcon} />
+                        ) : (
+                          <FaCertificate className={styles.btnIcon} />
+                        )}
+                        <span>View Certificate</span>
+                        <FaExternalLinkAlt className={styles.btnArrow} />
+                      </a>
+                    </div>
                   </div>
                 </motion.div>
               ))}
@@ -189,12 +289,12 @@ export default function Certificates() {
           <div className={styles.emptyState}>
             <FaAward className={styles.emptyIcon} />
             <h3>No certificates found</h3>
-            <p>Try adjusting your search query or filters.</p>
+            <p>Try adjusting your search query or selecting a different category.</p>
           </div>
         )}
       </div>
 
-      {/* Lightbox / Modal */}
+      {/* Lightbox / Preview Modal */}
       <AnimatePresence>
         {activeCertificate && (
           <motion.div 
@@ -214,9 +314,28 @@ export default function Certificates() {
               <div className={styles.modalHeader}>
                 <div className={styles.modalTitleWrapper}>
                   <h3>{activeCertificate.title}</h3>
-                  <span>{activeCertificate.org}</span>
+                  <div className={styles.modalSubRow}>
+                    <span className={styles.modalOrg}>
+                      <FaAward /> {activeCertificate.org}
+                    </span>
+                    {activeCertificate.date && (
+                      <span className={styles.modalDate}>
+                        <FaRegCalendarAlt /> {activeCertificate.date}
+                      </span>
+                    )}
+                  </div>
                 </div>
                 <div className={styles.modalActions}>
+                  <a
+                    href={activeCertificate.pdfUrl || activeCertificate.image}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.modalOpenBtn}
+                    title="Open original document in new tab"
+                  >
+                    <FaExternalLinkAlt />
+                    <span>{activeCertificate.isPdf ? 'Open PDF' : 'View Full Image'}</span>
+                  </a>
                   <button 
                     className={styles.modalBtn} 
                     onClick={() => setActiveCertificate(null)}
@@ -226,12 +345,29 @@ export default function Certificates() {
                   </button>
                 </div>
               </div>
+
               <div className={styles.modalBody}>
-                <img 
-                  src={activeCertificate.image} 
-                  alt={activeCertificate.title} 
-                  className={styles.modalImage} 
-                />
+                {activeCertificate.image ? (
+                  <img 
+                    src={activeCertificate.image} 
+                    alt={activeCertificate.title} 
+                    className={styles.modalImage} 
+                  />
+                ) : (
+                  <div className={styles.modalPdfPlaceholder}>
+                    <FaFilePdf size={64} className={styles.modalPdfIcon} />
+                    <h4>{activeCertificate.title}</h4>
+                    <p>Click below to open and view the verified PDF certificate.</p>
+                    <a
+                      href={activeCertificate.pdfUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.modalPdfLink}
+                    >
+                      <FaExternalLinkAlt /> Open Certificate PDF
+                    </a>
+                  </div>
+                )}
               </div>
             </motion.div>
           </motion.div>
