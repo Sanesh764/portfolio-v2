@@ -379,7 +379,7 @@ export const achievements = [
     icon: 'FaGraduationCap'
   },
   {
-    title: '10+ Verified Certifications',
+    title: '15+ Verified Certifications',
     category: 'Certifications',
     detail: 'Earned professional development credentials across Full Stack Development, Cloud, and Software Engineering.',
     badge: 'Credentials',
