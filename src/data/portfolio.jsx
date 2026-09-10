@@ -33,9 +33,9 @@ export const socialLinks = [
 
 export const stats = [
   { label: 'Projects Built', value: 10 },
-  { label: 'LeetCode Problems', value: 200 },
+  { label: 'LeetCode Problems', value: 250 },
   { label: 'Academic CGPA', value: '8.2' },
-  { label: 'GitHub Commits', value: 500 }
+  { label: 'GitHub Commits', value: 1000 }
 ];
 
 export const skills = {
